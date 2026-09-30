@@ -1,17 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { UserCheck, Search, Phone, LogIn, Check, ShieldCheck, X } from 'lucide-react';
+import initialMembers from '../data/hks_members.json';
 
 export default function LoginModal({ currentUser, onLogin, onClose, canClose }) {
-  const [members, setMembers] = useState([]);
+  const [members, setMembers] = useState(initialMembers || []);
   const [search, setSearch] = useState('');
-  const [selectedMember, setSelectedMember] = useState(null);
-
-  useEffect(() => {
-    fetch('./data/hks_members.json')
-      .then(res => res.json())
-      .then(data => setMembers(data))
-      .catch(err => console.error('Failed to load HKS members:', err));
-  }, []);
 
   const filteredMembers = members.filter(m => {
     const q = search.toLowerCase().trim();

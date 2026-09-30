@@ -21,13 +21,20 @@ import CollectionModal from './components/CollectionModal';
 import WhatsAppReportModal from './components/WhatsAppReportModal';
 import SyncSheetModal from './components/SyncSheetModal';
 import ReceiptModal from './components/ReceiptModal';
-import LoginModal from './components/LoginModal';
 import LoginPage from './components/LoginPage';
 import Dashboard from './components/Dashboard';
+import initialCustomers from './data/customers.json';
 
 export default function App() {
-  const [customers, setCustomers] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [customers, setCustomers] = useState(() => {
+    try {
+      const cached = localStorage.getItem('hks_cached_customers');
+      return cached ? JSON.parse(cached) : (initialCustomers || []);
+    } catch {
+      return initialCustomers || [];
+    }
+  });
+  const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedWard, setSelectedWard] = useState('all');
   const [selectedType, setSelectedType] = useState('all');

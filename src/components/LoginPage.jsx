@@ -1,24 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { UserCheck, Search, Phone, LogIn, Check, ShieldCheck, Sparkles, RefreshCw } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import initialMembers from '../data/hks_members.json';
 
 export default function LoginPage({ onLogin, totalCustomers }) {
-  const [members, setMembers] = useState([]);
+  const [members, setMembers] = useState(initialMembers || []);
   const [search, setSearch] = useState('');
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch('./data/hks_members.json')
-      .then(res => res.json())
-      .then(data => {
-        setMembers(data);
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error('Failed to load HKS members:', err);
-        setLoading(false);
-      });
-  }, []);
 
   const filteredMembers = members.filter(m => {
     const q = search.toLowerCase().trim();
@@ -145,11 +132,7 @@ export default function LoginPage({ onLogin, totalCustomers }) {
           gap: '8px',
           paddingRight: '4px'
         }}>
-          {loading ? (
-            <div style={{ textAlign: 'center', padding: '30px', color: '#64748b' }}>
-              അംഗങ്ങളുടെ പട്ടിക ലോഡ് ചെയ്യുന്നു...
-            </div>
-          ) : filteredMembers.length === 0 ? (
+          {filteredMembers.length === 0 ? (
             <div style={{ textAlign: 'center', padding: '30px', color: '#64748b' }}>
               '{search}' എന്ന പേരിൽ അംഗങ്ങളെ കണ്ടെത്തിയില്ല.
             </div>
