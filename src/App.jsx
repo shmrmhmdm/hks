@@ -83,7 +83,7 @@ export default function App() {
         setLoading(false);
       }
 
-      const res = await fetch('/data/customers.json');
+      const res = await fetch('./data/customers.json');
       if (res.ok) {
         const data = await res.json();
         setCustomers(data);

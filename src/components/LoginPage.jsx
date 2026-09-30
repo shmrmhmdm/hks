@@ -8,7 +8,7 @@ export default function LoginPage({ onLogin, totalCustomers }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/data/hks_members.json')
+    fetch('./data/hks_members.json')
       .then(res => res.json())
       .then(data => {
         setMembers(data);

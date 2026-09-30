@@ -7,7 +7,7 @@ export default function LoginModal({ currentUser, onLogin, onClose, canClose }) 
   const [selectedMember, setSelectedMember] = useState(null);
 
   useEffect(() => {
-    fetch('/data/hks_members.json')
+    fetch('./data/hks_members.json')
       .then(res => res.json())
       .then(data => setMembers(data))
       .catch(err => console.error('Failed to load HKS members:', err));
